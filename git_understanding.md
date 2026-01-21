@@ -48,6 +48,21 @@ Sometimes it can include a longer description that explain why the change was ma
 - Wastes time cause people must read the code in order to understand what changed
 - Hide important decisions or braking changes
 - Make reverts and cherry-picks risky because it's unclear what commit actually does
+# Issue #49
+## What does `git bisect` do?
+Helps you find a commit that introduces a bug, it uses a binary search approach:
+- You mark a commit as **good**, meaning that commit isn't the one that introduces the bug
+- Then you mark another commit as **bad**, this isn't necessary the commit that introduces the bug, but it might have it through numerous commits
+- After this Git checks out commits that are in the middle of your branch and ask you to test them to see if the bug appears
+- Based on your answer in the previous step, Git narrows the range until it finds the first bad commit.
+## When would you use it in a real-world debugging situation?
+Imagine a Spotify clone, just a project to learn more about Frontend, but through various commits, you notice that the player bar it isn't working well, the audio is pretty laggy, but specifically when you play a playlist, it doesn't happens when you play a single.
+
+In this scenario there's many commits related to the player bar, so instead of searching manually the one with the bug, you can search for it using `git bisect` in a much faster way, you'll only need to pay attention to the last time (in this case a commit) where it was working well.
+## How does it compare to manually reviewing commits?
+Manually review all commits of a branch in order to search a bug can be doable when the project it just starting out, although is a slow way, cause it too error prone, maybe you forget a specific bug, maybe some commits are pretty similar so you forget them, etc.
+
+But as time goes by, the commit history becomes chaotic and very hard to follow, so using `git bisect` is a much doable way of debugging the commit history, if you want a specific metric, is O(log₂ N) in Big O nation, which means it pretty fast.
 # Issue #50
 ## What does each command do?
 `git checkout -- <file>`: Reverts a file in your working directory back to the last committed version, discarding your local changes in that file.
