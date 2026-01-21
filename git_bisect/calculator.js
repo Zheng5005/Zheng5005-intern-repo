@@ -4,4 +4,9 @@ function sum(a, b) {
   return a + b
 }
 
+function substraction(a, b) {
+  return a - b
+}
+
 console.log(sum(3,5))
+console.log(substraction(3,5))
