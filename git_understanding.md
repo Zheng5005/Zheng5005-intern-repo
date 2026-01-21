@@ -48,6 +48,25 @@ Sometimes it can include a longer description that explain why the change was ma
 - Wastes time cause people must read the code in order to understand what changed
 - Hide important decisions or braking changes
 - Make reverts and cherry-picks risky because it's unclear what commit actually does
+# Issue #52
+## Why is pushing directly to `main` problematic?
+It can cause numerous problems:
+- A bug or bad design solutions can go to production stage immediately
+- If a bug or any problem is in main, everyone in the team will have the same problem in their local main branch.
+- Related to the previous ones, there's no safety net for someone new to the project, an intern can push a bug without notice it and go to production
+- There will be no space for discussion nor code reviews
+- Fixing bad commit in the main branch can be quiet messy
+## How do branches help with reviewing code?
+- Isolates changes into another branch and PR, making them more focused to the problem they are trying to solve
+- Allows for discussions and code reviews easily
+- Make it easier to identify bug in early states
+## What happens if two people edit the same file on different branches?
+It depends on what they work:
+- If they worked in the same file and same lines
+    - Git creates a merge conflict
+    - In this case someone needs to open that file and choose which version (or just combine them) to keep.
+- If they worked in the same file but different lines
+    - Git will merge the changes
 # Issue #53
 ## What is the difference between staging and committing?
 **Staging**: this means choosing which changes will be in the next commit, it just prepare them, you can still add or restore any changes at this stage without extra work
