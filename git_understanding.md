@@ -48,6 +48,42 @@ Sometimes it can include a longer description that explain why the change was ma
 - Wastes time cause people must read the code in order to understand what changed
 - Hide important decisions or braking changes
 - Make reverts and cherry-picks risky because it's unclear what commit actually does
+# Issue #50
+## What does each command do?
+`git checkout -- <file>`: Reverts a file in your working directory back to the last committed version, discarding your local changes in that file.
+
+`git cherry-pick <commit>`: Takes a specific commit from another branch and applies it to your current branch.
+
+`git log`: Shows the history of commits. in your current branch
+
+`git blame`: Shows who last modified each line of a file and in which commit.
+## When would you use it in a real project (hint: these are all really important in long running projects with multiple developers)?
+`git checkout -- <file>`: 
+- When you broke a file and want to undo things
+- Drop experimental changes in 1 file, but keep the rest of the changes
+- It lets you reset mistakes without getting in the way of other people work
+
+`git cherry-pick <commit>`:
+- A co-worker fixed an Issue on another branch and you need only that change
+- You don't want to merge the whole branch to main
+- Hotfixes
+
+`git log`:
+- To see the commit history
+- To find commit hashes for cherry-picking or reverting.
+- To see the commit history in a more detail way I personally use an alias to help me with that:
+	- sg = log --color --graph --oneline --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %C(dim green)(%cr) %C(bold magenta)<%an>%Creset' --abbrev-commit
+
+`git blame`:
+- To find who introduced a bug
+- To ask that specific person about a design choice
+- To understand why that piece of code exists
+## What surprised you while testing these commands?
+Honestly how understandable is to read the log with `git log`, cause every time I want to see the commit history of a project I use a custom alias with `git log --graph` to see the overall picture
+
+I also expect `git blame` to show the author of a change, but I didn't know it shows it line by line
+
+Also doing experimentation, I now know that cherry-pick can still cause merge conflicts
 # Issue #52
 ## Why is pushing directly to `main` problematic?
 It can cause numerous problems:
