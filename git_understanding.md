@@ -1,3 +1,4 @@
+# Issue #47
 ## Why are PRs important in a team workflow?
 It allows for a code review and better collaboration in teams, all without getting in the way of the main branch, so final users can have an updated version of the product without any issues related with differences in the code.
 
@@ -19,3 +20,31 @@ In a few word, a PR needs to be understood without asking the author 20 question
 - How people give feedback with professionalism.
 - How standard (tests, format, documentation, etc) it required in most Teams
 - In some PR, some design decisions were made, which gave me more insights of how that kind of decisions are made.
+# Issue #48
+## What makes a good commit message?
+- Is clear and specific, it explains what changed, not only "update things":
+	- Bad: "fix stuff"
+	- Good: "Fix crash when submitting empty login form"
+- Isn't long
+- It start with a verb:
+	- Add
+	- Fix
+	- Remove
+	- Refactor
+	- Update
+	- Improve
+	- etc
+- Describes 1 logical change
+- Follow the team's format
+
+Sometimes it can include a longer description that explain why the change was made
+## How does a clear commit message help in team collaboration? 
+- Let the person understand intimidatingly what changed without further explanation
+- Make code reviews easier and faster
+- Help newcomers to understand the project history
+- Make it easier to find changes using `git log`
+## How can poor commit messages cause issues later?
+- Make it harder to debug when tracking where the bug started
+- Wastes time cause people must read the code in order to understand what changed
+- Hide important decisions or braking changes
+- Make reverts and cherry-picks risky because it's unclear what commit actually does
