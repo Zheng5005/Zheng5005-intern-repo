@@ -48,3 +48,18 @@ Sometimes it can include a longer description that explain why the change was ma
 - Wastes time cause people must read the code in order to understand what changed
 - Hide important decisions or braking changes
 - Make reverts and cherry-picks risky because it's unclear what commit actually does
+# Issue #53
+## What is the difference between staging and committing?
+**Staging**: this means choosing which changes will be in the next commit, it just prepare them, you can still add or restore any changes at this stage without extra work
+
+**Commiting**: this means that the stage changes from the previous stage are store as snapshot in git, meaning now they being recorded (in case the file wasn't in the git snapshots) or now it has a new history entry in the snapshots
+## Why does Git separate these two steps?
+For a few reasons:
+- What this separation you can commit only relevant and related changes.
+- You can split numerous implementation into different and organized commits, this will be beneficial for a clean commit history
+- You can avoid committing experimental or unfinished pieces of code
+- Before you commit the changes, you can review what change and revert it in case you find an error or an unwanted change
+## When would you want to stage changes without committing?
+- When you want to double-check the changes you're going to commit, in order to see if everything is alright and doesn't go with an unwanted change
+- As a way to "mark" finished work
+- When you are preparing a commit but still waiting for something, it can be tests, one last change or a commit from a co-worker.
