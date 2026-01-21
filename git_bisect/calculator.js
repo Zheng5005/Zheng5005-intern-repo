@@ -1,0 +1,7 @@
+//This is a basic calculator functions in order to learn about git bisec, I'm goint commit every function indidually and in one of them I'm going to introduce a basic bug.
+
+function sum(a, b) {
+  return a + b
+}
+
+console.log(sum(3,5))
