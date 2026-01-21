@@ -99,6 +99,13 @@ Honestly how understandable is to read the log with `git log`, cause every time 
 I also expect `git blame` to show the author of a change, but I didn't know it shows it line by line
 
 Also doing experimentation, I now know that cherry-pick can still cause merge conflicts
+# Issue #51
+## What caused the conflict?
+I made 2 branches, branch-a and branch-b, and in each branch I made a comment in the same file (calculator.js) and in the same line, and the moment I tried to merge the 2 branches in main, the merge conflict arose.
+## How did you resolve it?
+I solve it by combining the 2 comments, this is just one way to solve this kind of Issues, you can also decide which version to keep
+## What did you learn?
+I learn different approaches on how to resolve this types of conflicts, and also even when the conflict is minimal, git doesn't merge the changes, this is a very good security measure, and pretty useful in big projects that in maintain by a big team
 # Issue #52
 ## Why is pushing directly to `main` problematic?
 It can cause numerous problems:
