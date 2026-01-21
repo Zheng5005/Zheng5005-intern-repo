@@ -12,6 +12,10 @@ function division(a, b) {
   return a * b
 }
 
+function mul(a, b) {
+  return a * b
+}
+
 console.log(sum(3,5))
 console.log(substraction(3,5))
 console.log(division(3,5))
