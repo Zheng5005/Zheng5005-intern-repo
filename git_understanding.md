@@ -19,3 +19,5 @@ In a few word, a PR needs to be understood without asking the author 20 question
 - How people give feedback with professionalism.
 - How standard (tests, format, documentation, etc) it required in most Teams
 - In some PR, some design decisions were made, which gave me more insights of how that kind of decisions are made.
+
+# Issue 48
