@@ -57,3 +57,8 @@ Most developers agree that comments aren't strictly necessary, but in some cases
 ## When should you avoid comments and instead improve the code?
 - When is redundant, if a simple function needs comments to understand what is is doing, it isn't following clean code principles
 - When a function is hard to follow, instead of writing the behavior of the code, it's better to re-factor it
+---
+## What was the issue with the original code?
+The function "isActiveAdult" handles a user object input, but at the beginning, it didn't take into account that the user object could miss the necessary fields, or those fields could be of another type that the functions needs.
+## How does handling errors improve reliability
+Now with the Refactoring, the function is more secure in the sense that now can handle some edge cases and act accordingly, it also provides more reliability by making sure the fields required are actually in the user object.
