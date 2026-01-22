@@ -62,3 +62,13 @@ Most developers agree that comments aren't strictly necessary, but in some cases
 The function "isActiveAdult" handles a user object input, but at the beginning, it didn't take into account that the user object could miss the necessary fields, or those fields could be of another type that the functions needs.
 ## How does handling errors improve reliability
 Now with the Refactoring, the function is more secure in the sense that now can handle some edge cases and act accordingly, it also provides more reliability by making sure the fields required are actually in the user object.
+
+---
+## How do unit tests help keep code clean?
+- They encourage simple and focused code, a code that is hard to test is a sign that is doing too much
+- Enforce better naming and structure
+- It makes refactoring safer
+- They can act as a documentation
+- Makes quickfixes easier to implement
+## What issues did you find while testing?
+I use the same function of the previous Issue (handling Edge cases) so I write unit test for each edge case I could think of, in this case I write the test with vitest cause I'm more familiar with this tool.
