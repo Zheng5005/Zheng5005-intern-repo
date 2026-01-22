@@ -23,3 +23,12 @@ Clean code puts emphasis on writing code that is not only readable for computers
 - Now it has a understandable goal
 - It can be understandable without testing and making questions
 - It now can be code review and change more easily
+---
+## Why is breaking down functions beneficial?
+- Functions become easier to debug and read
+- If a change is required it can be done in the specific function that has that responsibility
+- By splitting the function into smaller ones, you can handle different and reusable responsibilities
+## How did refactoring improve the structure of the code?
+- Now it can be debug with more ease
+- If a change is needed it can be done more easily
+- Every mini-function follow clean code principles, making things easier to understand
