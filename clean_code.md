@@ -32,3 +32,8 @@ Clean code puts emphasis on writing code that is not only readable for computers
 - Now it can be debug with more ease
 - If a change is needed it can be done more easily
 - Every mini-function follow clean code principles, making things easier to understand
+---
+## What were the issues with duplicated code?
+The issue in the code example (DRYPrinciples.js) is that the original function had the same business logic for each order category, which is error prone in the long run, if a price limit changes for a specific category it can be hard to spot the specific line that has that logic, and also requires more mental power in order to read the same code over and over again.
+## How did refactoring improve maintainability?
+The maintainability was improve by splitting the code in 2 function, the main one has the category validation, this split responsibility and provide a better way to debug the code, the second function is responsible for calculating the correct price, and if in the future the discount changes for 1 specific category, it can be implemented in its own function, this provides a safer way to expand use cases.
