@@ -37,3 +37,11 @@ Clean code puts emphasis on writing code that is not only readable for computers
 The issue in the code example (DRYPrinciples.js) is that the original function had the same business logic for each order category, which is error prone in the long run, if a price limit changes for a specific category it can be hard to spot the specific line that has that logic, and also requires more mental power in order to read the same code over and over again.
 ## How did refactoring improve maintainability?
 The maintainability was improve by splitting the code in 2 function, the main one has the category validation, this split responsibility and provide a better way to debug the code, the second function is responsible for calculating the correct price, and if in the future the discount changes for 1 specific category, it can be implemented in its own function, this provides a safer way to expand use cases.
+---
+## What made the original code complex?
+It made overly complicated things just to do simple things, like validating that user is an object, which in the context of the function (checking if the user is an adult and is active) is unnecessary, and uses a switch when is checking for a boolean basically
+## How did refactoring improve it?
+It improve by written all the logic from the over-complicated logic in just a line, which is more simple and maintainable
+## Refactoring Techniques
+There's a great resource to learn more about this topis and Design Patterns, here's the link:
+https://refactoring.guru/refactoring/techniques
