@@ -224,6 +224,52 @@ Most developers agree that comments aren't strictly necessary, but in some cases
 ## When should you avoid comments and instead improve the code?
 - When is redundant, if a simple function needs comments to understand what is is doing, it isn't following clean code principles
 - When a function is hard to follow, instead of writing the behavior of the code, it's better to re-factor it
+## Tasks
+For this task I wrote this code with poor written code:
+```badComments.js
+function calc(a, b) {
+  // set x to a
+  let x = a;
+
+  // do stuff
+  let y = x + b;
+
+  // check if y is greater than 10
+  if (y > 10) {
+    // increase y by 2
+    y = y + 2;
+  } else {
+    // decrease y by 2
+    y = y - 2;
+  }
+
+  // return y
+  return y;
+}
+```
+And then I refactor it to this:
+```goodCommens.js
+/**
+ * Adjusts the sum of two numbers to keep the result
+ * within a preferred range.
+ *
+ * If the sum exceeds 10, it applies a positive adjustment.
+ * Otherwise, it applies a negative adjustment.
+ */
+function adjustSum(a, b) {
+  const sum = a + b;
+
+  // Business rule: values above 10 get a small boost,
+  // while lower values are slightly reduced to normalize output.
+  if (sum > 10) {
+    return sum + 2;
+  }
+
+  return sum - 2;
+}
+```
+This relevant file can be found in this commit: https://github.com/Zheng5005/Zheng5005-intern-repo/commit/21995714dea859b63a2892f7f2bd481121fd8acd
+
 ---
 # Issue #39
 ## What was the issue with the original code?
