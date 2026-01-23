@@ -2,7 +2,7 @@
 ### **Navigation**
 - **Ctrl + F**: find text in the current page
 - **Ctrl + Shift + F**: find text in all files of the directory
-- **Ctrl + B**: To toggle side bar, this is something important for me, cause seeing all files at once makes me overwhelm for some reason, like every file is a task, and seeing all at once is kinda stressful.
+- **Ctrl + B**: To toggle side bar, this is something important for me, cause seeing all files at once makes me overwhelm for some reason, like every file is a task, and seeing all at once is kinda stressful. (see ./proofs/CTRL+B.png)
 - **F12 or Ctrl + Click**: To go to definition, this is useful to go to the implementation of a function for example, instead of manually looking for it
 ### **Editing**
 - **Alt + Click**: Insert cursor
@@ -26,3 +26,8 @@
 **Ctrl + F12**: Cause is always necessary to edit multiples lines of a files, and this is a huge productivity boost
 ## How keyboard shortcuts can improve productivity
 At least in VSCode it can increase productivity by doing multiples repetitive tasks in a faster way, basically the same benefit of keyboard shortcuts in NeoVim.
+
+## Personal usage
+- To save time writing the shortcut list I use multiple cursors to write the word "Step" in line #17-19 of this file
+- I also use CTRL + B and CTRL + J to toogle unnecesary information that takes focus out of me
+- I also thought I wrote "Insert" wrong through the whole file, so I search for the word to make sure is well written (see ./proofs/CTRL+F.png)
