@@ -181,6 +181,38 @@ It improve by written all the logic from the over-complicated logic in just a li
 ## Refactoring Techniques
 There's a great resource to learn more about this topis and Design Patterns, here's the link:
 https://refactoring.guru/refactoring/techniques
+## Tasks
+For the tasks I made an over-complicated function:
+```OverComplicated.js
+function checkUser(user) {
+  return !!(
+    user &&
+      typeof user === "object" &&
+      "age" in user &&
+      Number.isInteger(user.age) &&
+      user.age >= 18 &&
+      "status" in user &&
+      (function () {
+        switch (user.status) {
+          case "active":
+            return true
+          case "inactive":
+            return false
+          default:
+            return false
+        }
+      })()
+  )
+}
+```
+And then I refactor it in a single line, which is more maintainable and easy to understand:
+```OverComplicated.js
+function isActiveAdult(user) {
+  return user.age >= 18 && user.status === "active";
+}
+```
+You can find the relevant commit here:
+https://github.com/Zheng5005/Zheng5005-intern-repo/commit/b856d975e57e48382914394a523a24c1bc3b5f76
 
 ---
 ## When should you add comments?
