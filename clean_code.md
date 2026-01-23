@@ -58,11 +58,29 @@ Most developers agree that comments aren't strictly necessary, but in some cases
 - When is redundant, if a simple function needs comments to understand what is is doing, it isn't following clean code principles
 - When a function is hard to follow, instead of writing the behavior of the code, it's better to re-factor it
 ---
+# Issue #39
 ## What was the issue with the original code?
 The function "isActiveAdult" handles a user object input, but at the beginning, it didn't take into account that the user object could miss the necessary fields, or those fields could be of another type that the functions needs.
 ## How does handling errors improve reliability
 Now with the Refactoring, the function is more secure in the sense that now can handle some edge cases and act accordingly, it also provides more reliability by making sure the fields required are actually in the user object.
+## Tasks
+For the task I use the previous function of the Issue #41 that is already simplyfied (https://github.com/Zheng5005/Zheng5005-intern-repo/blob/main/clean_code/OverComplicatedCode.js):
+```OverComplicated.js
+function isActiveAdult(user) {
+  return user.age >= 18 && user.status === "active";
+}
+```
+Then I thought every edge case that this function can encounter and write some Guard clauses:
+```OverComplicated.js
+function isActiveAdult(user) {
+  if(!user.age || !user.status) return "Pass a valid User object"
+  if(user.age <= 0) return "Pass a valid age"
+  if(typeof user.age !== 'number') return "Age is not a number"
+  if(typeof user.status !== 'string') return "Pass a valid status"
 
+  return user.age >= 18 && user.status === "active";
+}
+```
 ---
 ## How do unit tests help keep code clean?
 - They encourage simple and focused code, a code that is hard to test is a sign that is doing too much
