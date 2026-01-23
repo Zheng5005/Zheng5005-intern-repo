@@ -70,6 +70,18 @@ In this scenario there's many commits related to the player bar, so instead of s
 Manually review all commits of a branch in order to search a bug can be doable when the project it just starting out, although is a slow way, cause it too error prone, maybe you forget a specific bug, maybe some commits are pretty similar so you forget them, etc.
 
 But as time goes by, the commit history becomes chaotic and very hard to follow, so using `git bisect` is a much doable way of debugging the commit history, if you want a specific metric, is O(log₂ N) in Big O nation, which means it pretty fast.
+## Task
+- To experiment with `git bisect` I made a new branch named "bisect_learning" where I created a new directory with a `calculator.js` file, where I would make basic arithmetic functions (Division, Multiplying, Sum, Subtraction)
+- I made every function in a separated commit, but the commit with the division function had a bug, It wasn't division, it multiplying
+- Then I run `git bisect start` where git would wait to indicate the Good and the Bad commit
+    - I run `git log` to see the commit history
+    - Then I choose the current commit as the "Bad" commit with the command `git bisect bad`
+    - Then I choose the commit that has the sum function as the "Good" commit with `git bisect good 88cc409128f07172597c5f4166e56b543a894690`
+- Then I started to debug from the commit in the middle of the "Bad" commit and the "Good" commit, if the actual commit still has the bug I would run `git bisect bad`, this process continue until I find the commit that had the bug
+- After discovering the initial bad commit with the bug, I ran `git bisect reset` which send me to the last commit in the the commit history
+
+You can see the commits and the directory in this PR:
+https://github.com/Zheng5005/Zheng5005-intern-repo/pull/65
 # Issue #50
 ## What does each command do?
 `git checkout -- <file>`: Reverts a file in your working directory back to the last committed version, discarding your local changes in that file.
