@@ -32,6 +32,141 @@ Clean code puts emphasis on writing code that is not only readable for computers
 - Now it can be debug with more ease
 - If a change is needed it can be done more easily
 - Every mini-function follow clean code principles, making things easier to understand
+## Tasks
+You can see the files I made for this Issue in: https://github.com/Zheng5005/Zheng5005-intern-repo/commit/974f4414be8c97d826da3c2c1890366e6402475c
+
+But the original long function was:
+```longFunction.js
+// Example of a long and hard to follow function
+function process(a, b, c, d) {
+  let r = 0;
+  let t = 0;
+  let f = false;
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i].x === b) {
+      if (a[i].y > c) {
+        if (d) {
+          r += a[i].y * 0.15;
+        } else {
+          r += a[i].y * 0.1;
+        }
+        t++;
+      } else {
+        if (a[i].z) {
+          r += 5;
+        }
+      }
+    } else {
+      if (a[i].y < 0) {
+        console.log("error");
+        f = true;
+      }
+    }
+
+    if (a[i].n === "A") {
+      r += 2;
+    } else if (a[i].n === "B") {
+      r += 4;
+    } else if (a[i].n === "C") {
+      r += 6;
+    }
+
+    if (t > 10) {
+      r -= 3;
+    }
+  }
+
+  if (f) {
+    console.log("Something went wrong");
+  }
+
+  return r;
+}
+```
+
+And this is the refactored version:
+```cleanFunctions.js
+const TAX_RATE_WITH_DISCOUNT = 0.15;
+const TAX_RATE_STANDARD = 0.1;
+const BONUS_THRESHOLD = 10;
+
+const CATEGORY_BONUS = {
+  A: 2,
+  B: 4,
+  C: 6,
+};
+
+function calculateTotal(items, requiredType, minimumValue, hasDiscount) {
+  let total = 0;
+  let qualifiedItemCount = 0;
+
+  for (const item of items) {
+    if (hasInvalidValue(item)) {
+      logError();
+      continue;
+    }
+
+    total += calculateItemContribution(
+      item,
+      requiredType,
+      minimumValue,
+      hasDiscount,
+      () => qualifiedItemCount++
+    );
+
+    total += getCategoryBonus(item.category);
+  }
+
+  return applyBulkPenalty(total, qualifiedItemCount);
+}
+
+function hasInvalidValue(item) {
+  return item.value < 0;
+}
+
+function logError() {
+  console.log("Something went wrong");
+}
+
+function calculateItemContribution(
+  item,
+  requiredType,
+  minimumValue,
+  hasDiscount,
+  onQualified
+) {
+  if (item.type !== requiredType) {
+    return 0;
+  }
+
+  if (item.value > minimumValue) {
+    onQualified();
+    return item.value * getTaxRate(hasDiscount);
+  }
+
+  if (item.hasExtraFee) {
+    return 5;
+  }
+
+  return 0;
+}
+
+function getTaxRate(hasDiscount) {
+  return hasDiscount ? TAX_RATE_WITH_DISCOUNT : TAX_RATE_STANDARD;
+}
+
+function getCategoryBonus(category) {
+  return CATEGORY_BONUS[category] ?? 0;
+}
+
+function applyBulkPenalty(total, qualifiedItemCount) {
+  if (qualifiedItemCount > BONUS_THRESHOLD) {
+    return total - 3;
+  }
+  return total;
+}
+```
 ---
 ## What were the issues with duplicated code?
 The issue in the code example (DRYPrinciples.js) is that the original function had the same business logic for each order category, which is error prone in the long run, if a price limit changes for a specific category it can be hard to spot the specific line that has that logic, and also requires more mental power in order to read the same code over and over again.
