@@ -13,3 +13,8 @@ whit
 definately
 seperate
 accommodate
+Beleive
+Calender
+Conscence
+Embarass
+Independant
