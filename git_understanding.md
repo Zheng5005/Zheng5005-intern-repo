@@ -140,3 +140,10 @@ For a few reasons:
 - When you want to double-check the changes you're going to commit, in order to see if everything is alright and doesn't go with an unwanted change
 - As a way to "mark" finished work
 - When you are preparing a commit but still waiting for something, it can be tests, one last change or a commit from a co-worker.
+## Tasks
+- First I run the command `git status` (see ./proofs/BeforeChange.png)
+- Then I made a minor change in README.md file, I just added my name, and ran `git status` again (see ./proofs/AfterChange.png)
+- Then I ran `git add README.md` to stage my changes
+- After all of this a ran `git reset HEAD README.md` (see ./proofs/GitReset.png) 
+- The file was unstaged
+- After this experiment I will commiting this info into the repository with `git commit -m"Issue #53 fix"`
