@@ -48,6 +48,13 @@ Sometimes it can include a longer description that explain why the change was ma
 - Wastes time cause people must read the code in order to understand what changed
 - Hide important decisions or braking changes
 - Make reverts and cherry-picks risky because it's unclear what commit actually does
+## Where to find the commits?
+You can find the three commits in here:
+Vague message commit: https://github.com/Zheng5005/Zheng5005-intern-repo/commit/58073ae62bdc939049f77bc2d821bdf2e9d9a81e
+Overly detailed commit message: https://github.com/Zheng5005/Zheng5005-intern-repo/commit/27d2bc71fe92ea3205c05ce98747a29eb32f86c4
+Well-structured commit message: https://github.com/Zheng5005/Zheng5005-intern-repo/commit/e684938279471fc9aa7802fe195ba5a66f78c6dd
+
+and also can see ./proofs/Issue #48 commits.png
 # Issue #49
 ## What does `git bisect` do?
 Helps you find a commit that introduces a bug, it uses a binary search approach:
