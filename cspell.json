@@ -1,0 +1,63 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "FocusBear",
+    "Kanban",
+    "cli",
+    "eslint",
+    "gitignore",
+    "node_modules",
+    "npm",
+    "repo",
+    "vscode",
+    "zheng",
+    "linting",
+    "markdown",
+    "workflows",
+    "OHS",
+    "Ergonomics",
+    "frontend",
+    "backend",
+    "typescript",
+    "javascript",
+    "react",
+    "angular",
+    "vite",
+    "zustand",
+    "axios",
+    "api",
+    "github",
+    "gemini",
+    "changelog",
+    "ripgrep"
+  ],
+  "dictionaries": [
+    "companies",
+    "softwareTerms",
+    "filetypes",
+    "html",
+    "css",
+    "markdown",
+    "node",
+    "npm",
+    "typescript",
+    "fonts"
+  ],
+  "files": [
+    "**/*.md",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.json"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    ".git/**",
+    "package-lock.json",
+    "build/**",
+    "dist/**",
+    "temp/**",
+    ".vscode/**",
+    ".github/**"
+  ]
+}
