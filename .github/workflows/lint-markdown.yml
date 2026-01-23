@@ -1,0 +1,32 @@
+name: Markdown Linting and Spell Check
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - '**.md'  # Only run when markdown files change
+
+jobs:
+  lint-and-spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'  # Cache npm dependencies
+
+      - name: Install tools
+        run: npm install -g markdownlint-cli cspell
+
+      - name: Run markdownlint
+        run: markdownlint '**/*.md' --ignore node_modules --ignore LICENSE
+        continue-on-error: false  # Fail the build if linting fails
+
+      - name: Run cspell
+        run: cspell '**/*.md' --no-progress --show-suggestions
+        continue-on-error: true  # Don't fail build on spelling errors, just warn
