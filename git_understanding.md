@@ -106,6 +106,11 @@ Honestly how understandable is to read the log with `git log`, cause every time 
 I also expect `git blame` to show the author of a change, but I didn't know it shows it line by line
 
 Also doing experimentation, I now know that cherry-pick can still cause merge conflicts
+## Tasks
+- I made a new branch called testing, and made some change (a comment) in README.md, then I execute `git checkout main -- README.md` which delete my changes (see ./proofs/GitCheckout.png)
+- Then I made 2 commits, 1 with a testFile42, and other with changes in testFile2, then I only cherry-pick the commit with testFile2 changes and added to main branch (see ./proofs(CherryPick.png for run proof)
+-  Then I use Git log to see the commit history in main branch (see ./proofs/Log.png)
+-  And finally I run git blame in testFile2 to see who made the changes. (see ./proofs/Blame.png)
 # Issue #51
 ## What caused the conflict?
 I made 2 branches, branch-a and branch-b, and in each branch I made a comment in the same file (calculator.js) and in the same line, and the moment I tried to merge the 2 branches in main, the merge conflict arose.

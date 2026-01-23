@@ -1,1 +1,1 @@
-This is a file for testing how cherry-pick works, this comes from a branch called testing
+File that comes from another branch
