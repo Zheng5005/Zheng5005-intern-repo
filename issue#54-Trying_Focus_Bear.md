@@ -6,3 +6,18 @@
 5. It's kinda confusing having a **Stats** page in the app, but having a button in the **Settings** page that says shows your stats, only to open other view.
 ## How can the on-boarding process be improve
 1. Having a space to customize the main page in order to have a more clean setup
+
+## Test to check CI workflow
+mispell
+whit
+definately
+seperate
+accommodate
+Beleive
+Calender
+Conscence
+Embarass
+Independant
+unnecesary
+seperate
+supercede
