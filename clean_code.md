@@ -359,3 +359,31 @@ describe('isActiveAdult', () => {
   })
 })
 ```
+---
+## Why is code formatting important?
+It it important, specially for big teams, that the whole codebase has the same format:
+- This reduces the mental load of reading different styles in numerous files.
+- It improves readability and understanding by highlighting logical blocks
+- Makes nesting more clear
+- Reduces bugs by catching missing braces, misread conditionals, etc.
+- Makes collaboration easier by reducing discussions about formatting in PR reviews.
+- Makes the code more maintainable
+## What issues did the linter detect?
+Mostly the miss of semicolons (;) throughout the file, although it made some function more readable by enforcing a better indentation, for example:
+```js
+export function logItems(items) {
+  items.forEach(item => console.log("Item: ", item));
+}
+```
+ And then the ESlint version:
+```js
+export function logItems(items) {
+  items.forEach((item) => {
+    console.log("Item:", item);
+  });
+}
+```
+## Did formatting the code make it easier to read?
+In general I would say yes, Code blocks are more clearly distinguishable from each other, although it made me realized that I was not following best formatting practices.
+## Tasks
+I installed **ESlint** and **Prettier** in VSCode and configure them to run every time I save a file, and to apply that run throughout the whole file. (see ./proofs/FormatVSCode.png)
