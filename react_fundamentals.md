@@ -91,3 +91,74 @@ export default function Counter() {
   );
 }
 ```
+# Issue 28
+## What are some common issues when working with lists in React?
+- Missing the key prop in every item, this is useful cause React uses this key to know if that component needs to be re-render or not
+- A bad practice is using the index as a key, this index can change, so is not a reliable source
+- Mutating the list state directly, this is a bad practice
+- Not handling empty list with a error message
+- Not using pagination to render big lists
+- Not using accessibility features.
+- Not splitting the dynamic codeblocks from the purely UI code 
+## Tasks
+This is the Form component:
+```Form.jsx
+import { useState } from "react";
+import List from "./List";
+
+export default function Form() {
+  const [items, setItems] = useState([]);
+  const [input, setInput] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setItems((prev) => [...prev, input]);
+    setInput("");
+  }
+
+  return (
+    <div className="mx-auto mt-10 flex max-w-sm flex-col items-center rounded-lg bg-gray-100 p-6 shadow-md">
+      <form onSubmit={handleSubmit} className="flex w-full gap-2">
+        <input
+          name="input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Put your text here"
+          className="flex-1 rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <button
+          type="submit"
+          className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Add
+        </button>
+      </form>
+
+      <List items={items} />
+    </div>
+  );
+}
+``` 
+
+This is the List component:
+```List.jsx
+export default function List({ items }) {
+  if (items.length === 0) {
+    return <p className="text-sm text-gray-500">No items yet</p>;
+  }
+
+  return (
+    <ul className="mt-4 w-full max-w-sm space-y-2">
+      {items.map((item, index) => (
+        <li
+          key={`${item}-${index}`}
+          className="rounded-md bg-white px-4 py-2 shadow-sm"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
