@@ -33,3 +33,24 @@ function App() {
 export default App
 ```
 As you can see the HelloWorld component receives a name prop, which makes the name to render dynamically
+# Issue 30
+## What happens if we modify state directly instead of using setState?
+- The page wouldn't reload, cause React relies in state updates, which are trigger by using the setState function
+- The state model that React relies on assumes that state is immutable, so it would be a bad practice to change the state directly instead of using setState
+- It can made some optimization obsolete
+## Tasks
+```Counter.js
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div>
+      <p>You have click the button {count} times</p>
+
+      <button onClick={() => setCount((c) => c + 1)}>Click me</button> 
+    </div>
+  )
+}
+```
