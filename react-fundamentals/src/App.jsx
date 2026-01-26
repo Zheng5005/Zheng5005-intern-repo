@@ -1,14 +1,13 @@
-import Counter from './components/Counter'
-import HelloWorld from './components/HelloWorld'
-import Form from './components/Issue28/Form'
+import { Route, Routes } from 'react-router'
+import HomePage from './pages/Home'
+import Profile from './pages/Profile'
 
 function App() {
   return (
-    <>
-      <HelloWorld name={"Focus Bear"}/>
-      <Counter />
-      <Form />
-    </>
+    <Routes>
+      <Route index element={<HomePage />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
   )
 }
 

@@ -162,3 +162,76 @@ export default function List({ items }) {
   );
 }
 ```
+# Issue #25
+## What are the advantages of client-side routing?
+- Faster navigation, manly cause the page doesn't fully reload, so navigation feels instant and only needed components are updated
+- The previous advantage provides a better user experience
+- Reduces server load, by not rendering every page in client side
+- Makes for a clear separation of concerns
+- Is easy to share state across the page
+- Enables for advance UI patterns (like nested and protected routes and layouts)
+- Works pretty well with component-based frameworks
+## Tasks
+I ran:
+`npm install react-router` 
+
+Then in the main.jsx component
+```main.jsx
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+)
+``` 
+
+This is the App.jsx component
+```App.jsx
+function App() {
+  return (
+    <Routes>
+      <Route index element={<HomePage />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
+  )
+}
+``` 
+
+Home.jsx
+```Home.jsx
+export default function HomePage() {
+  return (
+    <>
+      <Link to="/profile">
+        <button 
+          className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:cursor-pointer" >
+          Profile Page
+        </button>
+      </Link>
+      <HelloWorld name={"Focus Bear"}/>
+      <Counter />
+    </>
+  )
+}
+```
+
+Profile.jsx
+```Profile.jsx
+import { Link } from "react-router";
+import Form from "../components/Issue28/Form";
+
+export default function Profile() {
+  return (
+    <>
+      <Link to="/">
+        <button 
+          className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:cursor-pointer" >
+          Home Page
+        </button>
+      </Link>
+      <Form />
+    </>
+  )
+}
+```
