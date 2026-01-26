@@ -54,3 +54,40 @@ export default function Counter() {
   )
 }
 ```
+# Issue 29
+## What are the advantages of using Tailwind CSS?
+- A pre-defined framework, so there's no need to create CSS classes (unless you want a more custom look)
+- Fast prototyping
+- More style consistency throughout the project
+- TailwindCSS removes all the un-utilize CSS, making for a better performance
+## What are some potential pitfalls?
+- It can made HTML/JXS code more messy by having too much classes
+- A higher learning curve than just learning CSS
+- It can lead to refactoring avoidance
+- Is harder to enforce design rules
+- It doesn't align very well with the philosophy of separation of concerns
+## Tasks
+```Counter.js
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-100 p-6 shadow-md">
+      <p className="text-lg text-gray-800">
+        You have clicked the button <span className="font-semibold">{count}</span>{" "}
+        times
+      </p>
+
+      <button
+        type="button"
+        onClick={() => setCount((c) => c + 1)}
+        className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:cursor-pointer"
+      >
+        Click me
+      </button>
+    </div>
+  );
+}
+```
