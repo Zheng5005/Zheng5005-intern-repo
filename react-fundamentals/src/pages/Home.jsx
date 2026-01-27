@@ -7,8 +7,14 @@ export default function HomePage() {
     <>
       <Link to="/profile">
         <button 
-          className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:cursor-pointer" >
+          className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:cursor-pointer m-2" >
           Profile Page
+        </button>
+      </Link>
+      <Link to="/useEffect">
+        <button 
+          className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:cursor-pointer" >
+          useEffect component Page
         </button>
       </Link>
       <HelloWorld name={"Focus Bear"}/>
