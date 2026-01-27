@@ -125,3 +125,86 @@ export const initialItems = new Array(10000).fill(0).map((_, i) => {
   };
 });
 ```
+# Issue #22
+## What problem does useCallback solve?
+Similar to useMemo, it solves the problem of unnecessary re-renders caused by a different function reference, this is because every time React re-renders a component, it re-renders its childs and its functions
+
+This re-render creater another reference to the previous function, which makes the child component to also re-render (if you're passing it through props), by using useCallback, you are caching the reference and if the dependencies don't change, the child component won't re-render along side the parent component
+## How does useCallback work differently from useMemo?
+useCallback memoizes a functions and return a function, useMemo memoizes the result of an expensive computation and return any value
+## When would useCallback not be useful?
+- Using it everywhere, ironically can create performance issues in the long run
+- When the child component isn't memoized
+- When is a trivial function that doesn't impact performance in reality
+## Thoughts
+Although in the surface useCallback is similar to useMemo, its goal to cache the function itself, not the result of that function, an idea to get this better (provided by React official documentation):
+```example
+// Simplified implementation (inside React)
+function useCallback(fn, dependencies) {
+  return useMemo(() => fn, dependencies);
+}
+```
+
+It also worth mention that the same tip from the React official documentation has for useMemo can by applied to useCallback:
+- "You should only rely on useCallback as a performance optimization. If your code doesn’t work without it, find the underlying problem and fix it first. Then you may add useCallback to improve performance."
+## Tasks
+This is a Parent component:
+```ParentComponent.jsx
+import { useCallback, useState } from "react";
+import Child from "./ChildComponent";
+
+export default function Parent() {
+  const [count, setCount] = useState(0);
+  const [theme, setTheme] = useState("light");
+
+  const increment = useCallback(() => {
+    setCount((c) => c + 1);
+  }, []);
+  
+  // Without useCallback it will cause the Chid component to re-render
+  //function increment() {
+    //setCount((c) => c + 1)
+  //}
+
+  console.log("👨 Parent rendered");
+
+  return (
+    <div className="space-y-4 p-4">
+      <p>Count: {count}</p>
+
+      <button
+        onClick={() =>
+          setTheme((t) => (t === "light" ? "dark" : "light"))
+        }
+        className="rounded bg-blue-600 px-4 py-2 text-white"
+      >
+        Toggle Theme
+      </button>
+
+      <Child onIncrement={increment} />
+    </div>
+  );
+}
+```
+
+And this is the Child component:
+```ChildComponent.jsx
+import { memo } from "react";
+
+const Child = memo(function Child({ onIncrement }) {
+  console.log("Children rendered")
+
+  return (
+    <button
+      onClick={onIncrement}
+      className="rounded bg-green-600 px-4 py-2 text-white"
+    >
+      Increment from Child
+    </button>
+  );
+})
+
+export default Child
+```
+
+Also I enable highlights when update in React DevTools so see in a better way what id re-rendering (see ./proofs/ReactDevTools.png)

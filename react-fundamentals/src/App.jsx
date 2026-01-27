@@ -3,6 +3,7 @@ import HomePage from './pages/Home'
 import Profile from './pages/Profile'
 import EffectComponent from './components/EffectComponent'
 import SlowAndOptimized from './components/SlowAndOptimized'
+import Parent from './components/Issue22/ParentComponent'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/useEffect" element={<EffectComponent />} />
       <Route path="/useMemo" element={<SlowAndOptimized />} />
+      <Route path="/useCallback" element={<Parent />} />
     </Routes>
   )
 }
