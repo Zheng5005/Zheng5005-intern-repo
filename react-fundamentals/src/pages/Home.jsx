@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import Counter from "../components/Counter";
 import HelloWorld from "../components/HelloWorld";
+import AxiosComponent from "../components/AxiosComponent";
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
       </Link>
       <HelloWorld name={"Focus Bear"}/>
       <Counter />
+      <AxiosComponent />
     </>
   )
 }
