@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Trans } from "react-i18next";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
@@ -6,8 +7,14 @@ export default function Counter() {
   return (
     <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-100 p-6 shadow-md">
       <p className="text-lg text-gray-800">
-        You have clicked the button <span className="font-semibold">{count}</span>{" "}
-        times
+        {/*You have clicked the button <span className="font-semibold">{count}</span>{" "}
+        times */}
+        <Trans 
+          i18nKey="counterText" 
+          count={count} 
+          components={{
+            1: <span className="font-semibold" />
+          }} />
       </p>
 
       <button
