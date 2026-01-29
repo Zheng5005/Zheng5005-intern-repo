@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCount } from "../store/counterSlice";
 
 export default function EffectComponent() {
   const [data, setData] = useState(null);
+  const count = useSelector(selectCount)
 
   async function fetchAPI(signal) {
     try {
@@ -46,6 +49,12 @@ export default function EffectComponent() {
       >
         Fetch Data
       </button>
+
+      {count > 15 ? (
+        <div className="rounded-md bg-gray-100 p-4">
+          <p>count is greater than 15 in this moment, the current count is: {count}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

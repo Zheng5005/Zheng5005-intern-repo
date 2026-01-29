@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import FormikComponent from "./FormikComponent";
 
 export default function HelloWorld({name}) {
   const { t } = useTranslation()
@@ -7,7 +6,6 @@ export default function HelloWorld({name}) {
   return (
     <>
       <h1 className="text-3xl font-bold underline">{t('welcomeMessage', {name: name})}</h1>
-      <FormikComponent />
     </>
   )
 }

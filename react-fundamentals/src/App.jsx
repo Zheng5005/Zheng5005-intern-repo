@@ -5,6 +5,7 @@ import EffectComponent from './components/EffectComponent'
 import SlowAndOptimized from './components/SlowAndOptimized'
 import Parent from './components/Issue22/ParentComponent'
 import BuggyComponent from './components/BuggyComponent'
+import FormikComponent from './components/FormikComponent'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/useMemo" element={<SlowAndOptimized />} />
       <Route path="/useCallback" element={<Parent />} />
       <Route path="/timer" element={<BuggyComponent />} />
+      <Route path="/Formik" element={<FormikComponent />} />
     </Routes>
   )
 }

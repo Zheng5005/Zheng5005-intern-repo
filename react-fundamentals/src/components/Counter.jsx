@@ -1,9 +1,9 @@
 import { Trans } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { increment } from "../store/counterSlice";
+import { increment, selectCount } from "../store/counterSlice";
 
 export default function Counter() {
-  const count = useSelector(state => state.counter.value)
+  const count = useSelector(selectCount)
   const dispatch = useDispatch()
 
   return (

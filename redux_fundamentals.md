@@ -1,3 +1,4 @@
+# Issue #27
 ## When should you use Redux instead of useState?
 The short answer would be when you want shared and global state throughout the whole app (you could use Redux, Zustand, Jotai, etc), and useState when you need a state that only a specific (or just a handful) component need the state
 
@@ -106,4 +107,64 @@ export default function Counter() {
     </div>
   );
 }
+```
+# Issue #26
+## What are the benefits of using selectors instead of directly accessing state?
+- It let's you scale with easy
+- It hides the store structures from the components, meaning that you can have a selector function that retrives a name from the store, and the componente only calls for it, if in the future you decide to change that name state, you'll only need to do the change in 1 file, not in all components that calls for that state
+- It improves maintainability and refactoring
+- Selectors can be used in multiple parts of the app (components, tests, middleware, etc)
+- It let's you have a derived data without charging to much a component
+- With additional libraries (like Reselect) you can optimaze performance with memoization
+- It makes the components that uses the selector more cleaner and more readable
+- It makes testing easier
+## Tasks
+I added this line of code in the counterSlice.js file, this is the selector function
+`export const selectCount = state => state.counter.value`
+
+This will be the new counterSlice.js file
+```counterSlice.js
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: {
+    value: 0
+  },
+  reducers: {
+    increment: state => {
+      state.value += 1
+    },
+    incrementByAmount: (state, action) => {
+      state.value += action.payload
+    }
+  }
+})
+
+// Action creators are generated for each case reducer function
+export const { increment, incrementByAmount } = counterSlice.actions
+export default counterSlice.reducer
+
+// selectors
+export const selectCount = state => state.counter.value
+```
+
+Then in the Counter, EffectComponent and FormikComponent files I access the count value with this line of code
+`const count = useSelector(selectCount)`
+
+Then I modify the UI of the EffectComponent and the FormikComponent to display a message based on the count value
+This is the code added to the EffectComponent:
+```js
+{count > 15 ? (
+    <div className="rounded-md bg-gray-100 p-4">
+        <p>count is greater than 15 in this moment, the current count is: {count}</p>
+    </div>
+) : null}
+```
+
+And this is the code added to the FormikComponent:
+```js
+{count > 20 ? (
+    <div className="rounded-md bg-gray-100 p-4">
+        <p>count is greater than 20 in this moment, the current count is: {count}</p>
+    </div>
+) : null}
 ```

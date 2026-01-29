@@ -1,5 +1,7 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
+import { useSelector } from "react-redux";
 import * as Yup from "yup";
+import { selectCount } from "../store/counterSlice";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -10,6 +12,8 @@ const validationSchema = Yup.object({
 });
 
 export default function FormikComponent() {
+  const count = useSelector(selectCount)
+
   return (
     <div className="max-w-md space-y-4">
       <h1 className="text-xl font-semibold">Sign up</h1>
@@ -66,6 +70,12 @@ export default function FormikComponent() {
           </button>
         </Form>
       </Formik>
+
+      {count > 20 ? (
+        <div className="rounded-md bg-gray-100 p-4">
+          <p>count is greater than 20 in this moment, the current count is: {count}</p>
+        </div>
+      ) : null}
     </div>
   );
 }
