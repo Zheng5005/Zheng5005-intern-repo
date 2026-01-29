@@ -116,3 +116,115 @@ describe("Message", () => {
 ```
 
 IMPORTANT NOTE: this line of code `import '@testing-library/jest-dom/vitest';` is crucial to have it somewhere in the project, in a separate config file or in every test file, cause this import everything you need to run the DOM API that simulates a browser in order to test your components
+# Issue #17
+## Why is it important to mock API calls in tests?
+- Makes sure that the response is consistent, cause a real API can be slow o can go down, mocking an API response ensures that every time you pass the same inputs, the component has a consistent response to that
+- To adds more to the previous point, a real request can be also slow and hard to run in a CI pipeline, mocks run instantly
+- You don't depend on external dependencies, meaning that aa API can change or your Wi-Fi can bad, but this can't be the reason that your test fails 
+- You can test edge cases, for example a "Server Error" response
+## What are some common pitfalls when testing asynchronous code?
+- Forgetting that the testing function needs to be asynchronous
+- To add more, when you expect something (an UI change, re-rendering, etc) you need to remenber to add "await" to it, cause the function is asynchronous
+- Using "getBy" function instead of "findBy", the latter is use to get async UI changes
+- Similar to the second pitfall, you need to add "await" to every user event, like a user clicking a button and fire a fetch action
+- Forgetting that state changes are not instant, so you need to remenber not to assert too early
+- Forgetting to clean between every test, this can make one test to affect another
+## Tasks
+I wrote the MockAPIComponent that fetches an API when the user clicks a button:
+```js
+import { useEffect, useState } from "react";
+
+export default function MockAPIComponent() {
+  const [data, setData] = useState(null);
+
+  async function fetchAPI(signal) {
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/todos/1",
+        { signal }
+      );
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error("Fetch failed:", error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    return () => {
+      controller.abort(); // cleanup
+    };
+  }, []);
+
+  return (
+    <div className="flex flex-col gap-4">
+      {data && (
+        <div className="rounded-md bg-gray-100 p-4">
+          <p>ID: {data.id}</p>
+          <p>Title: {data.title}</p>
+          <p>Completed: {String(data.completed)}</p>
+        </div>
+      )}
+
+      <button
+        type="button"
+        onClick={() => fetchAPI()}
+        className="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Fetch Data
+      </button>
+    </div>
+  );
+}
+```
+
+Then I wrote the test that Mock the API response and also simulates the user interaction (click a button)
+```js
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import '@testing-library/jest-dom/vitest';
+import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
+import MockAPIComponent from "../src/components/MockAPIComponent";
+
+describe("MockAPIComponent", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it("fetches data and displays it after clicking the button", async () => {
+    // Mocking API response
+    const mockResponse = {
+      id: 1, 
+      title: "Mocked todo",
+      completed: false,
+    }
+
+    vi.spyOn(global, "fetch").mockResolvedValue({
+      json: vi.fn().mockResolvedValue(mockResponse),
+    })
+
+    // Rendering component
+    render(<MockAPIComponent />)
+
+    // Clicking the button that fire the fetch action
+    const button = screen.getByRole("button", { name: /fetch data/i })
+    await userEvent.click(button)
+
+    // Assert UI updates
+    expect(await screen.findByText("ID: 1")).toBeInTheDocument()
+    expect(screen.getByText("Title: Mocked todo")).toBeInTheDocument()
+    expect(screen.getByText("Completed: false")).toBeInTheDocument()
+
+    // Assert fetch was called
+    expect(global.fetch).toHaveBeenCalledOnce()
+    expect(global.fetch).toHaveBeenCalledWith(
+      "https://jsonplaceholder.typicode.com/todos/1",
+      expect.any(Object)
+    )
+  })
+})
+```
