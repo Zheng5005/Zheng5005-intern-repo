@@ -11,3 +11,12 @@ I would choose it for different reasons:
 ## Based on your research, what’s one improvement you think Focus Bear could make?
 - Even though It has streaks, it would be helpful to display it somewhere visible at first glance, to promote adherence to an habit.
 - Again, even though it has routing sharing, it could benefit from having a more visible way of knowing it has this feature
+## Competitors features
+- **Cold Turkey**: It has a browser extension with more support for other browser, to my understanding, Focus Bear only has an extension for Chrome and Firefox
+- **Freedom**: It has more support for sync blocking session, meaning that you can begin a session on your laptop, and your phone will be in sync with that session, blocking any distraction.
+    - I tried this app for a couple of minutes (see ./proofs/Freedom-usage.png), although nice, I thought it was kinda overwhelming at first, maybe a more friendly On-boarding would be more appropiate.
+- **Tiimo**: It has a more intuitively way of tracking your mood across your usage, allowing to recognize patterns.
+- **Routinery**: You can start a routine based on the location you're in, very useful to split your life in work, personal life, fitness, etc.
+    -Based on my research, this would be the one I would the most interest, manly cause of the routines based on locations, it's Something that could benefit cause I like to split mi life in big "categories" (meaning work, firnes, mental health, etc.)
+
+Something I really wish every app had is a compatible version with Linux, cause at the moment I'm using Ubuntu, but it isn't a big deal to be honest
