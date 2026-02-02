@@ -228,3 +228,214 @@ describe("MockAPIComponent", () => {
   })
 })
 ```
+# Issue #16
+## What was the most challenging part of testing Redux?
+- Understanding what needs test, and what not, every Redux layer needs it's own testing methods
+    - Reducers (pure logic)
+    - Action creators / thunks (side effects)
+    - Selectors (derived data)
+    - Components connceted to Redux
+- Testing async logic
+- Mocking the store, one best practice is to use a real store with a test reducer
+- Not using selectors to access pretty nested data
+- Over-testing implementation details
+## How do Redux tests differ from React component tests?
+React components tests usually focus on testing what the user sees and does, it focus on UI, command things to test here:
+    - Text on screen
+    - Buttons
+    - Inputs
+    - etc
+
+On the other hand Redux tests often focus on testing the state transitions and business logic, command things to test:
+    - Reducers
+    - Selectors
+    - Thunks
+    - Components connected to a Redux store
+## Tasks
+This is the slice to test, I made with synchronous and asynchronous actions in order to test both
+```js
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (userId, {rejectWithValue}) => {
+    try {
+      const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+      if(!res.ok) {
+        throw new Error('Failed to fetch user')
+      }
+      const data = await res.json()
+      return data
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    currentUser: null,
+    users: [],
+    loading: false,
+    error: null,
+  },
+  reducers: {
+    addUser: (state, action) => {
+      state.users.push(action.payload)
+    },
+    clearUsers: (state) => {
+      state.users = [];
+      state.currentUser = null;
+    },
+    // Normal synchronous action
+    setCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload
+        const exists = state.users.find(user => user.id === action.payload.id)
+        if (!exists) {
+          state.users.push(action.payload)
+        }
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+  }
+})
+
+export const { addUser, clearUsers, setCurrentUser } = userSlice.actions
+export default userSlice.reducer
+```
+
+and this is the test file I created to test the previous Slice:
+```js
+import { beforeEach, describe, expect, it } from "vitest";
+import userReducer, { addUser, clearUsers, fetchUser, setCurrentUser } from '../src/store/userSlice'
+
+describe('userSlice', () => {
+  let initialState;
+
+  beforeEach(() => {
+    initialState = {
+      currentUser: null,
+      users: [],
+      loading: false,
+      error: null,
+    }
+  })
+
+  // Sync actions
+  describe('sync actions', () => {
+    it('should handle addUser action', () => {
+      const newUser = { id: 1, name: 'John Doe', email: 'john@example.com' };
+      const action = addUser(newUser);
+      const state = userReducer(initialState, action);
+
+      expect(state.users).toHaveLength(1)
+      expect(state.users[0]).toEqual(newUser)
+    })
+
+    it('should add multiple users', () => {
+      let state = initialState;
+      state = userReducer(state, addUser({ id: 1, name: 'User 1' }));
+      state = userReducer(state, addUser({ id: 2, name: 'User 2' }));
+
+      expect(state.users).toHaveLength(2);
+      expect(state.users[1].name).toBe('User 2');
+    });
+
+    it('should handle clearUsers action', () => {
+      const stateWithUsers = {
+        ...initialState,
+        users: [
+          { id: 1, name: 'User 1' },
+          { id: 2, name: 'User 2' }
+        ],
+        currentUser: { id: 1, name: 'User 1' }
+      };
+
+      const state = userReducer(stateWithUsers, clearUsers());
+
+      expect(state.users).toHaveLength(0);
+      expect(state.currentUser).toBeNull();
+    });
+
+    it('should handle setCurrentUser action', () => {
+      const user = { id: 1, name: 'Jane Doe', email: 'jane@example.com' };
+      const action = setCurrentUser(user);
+      const state = userReducer(initialState, action);
+
+      expect(state.currentUser).toEqual(user);
+    });
+  })
+
+  // Async actions
+  describe('fetchUser async action', () => {
+    it('should set loading to true when fetchUser is pending', () => {
+      const action = { type: fetchUser.pending.type };
+      const state = userReducer(initialState, action);
+
+      expect(state.loading).toBe(true);
+      expect(state.error).toBeNull();
+    });
+
+    it('should update state when fetchUser is fulfilled', () => {
+      const mockUser = { 
+        id: 1, 
+        name: 'John Doe', 
+        email: 'john@example.com' 
+      };
+      const action = { 
+        type: fetchUser.fulfilled.type, 
+        payload: mockUser 
+      };
+      const state = userReducer(initialState, action);
+
+      expect(state.loading).toBe(false);
+      expect(state.currentUser).toEqual(mockUser);
+      expect(state.users).toContainEqual(mockUser);
+      expect(state.error).toBeNull();
+    });
+
+    it('should not add duplicate users when fetchUser is fulfilled', () => {
+      const mockUser = { id: 1, name: 'John Doe' };
+      const stateWithUser = {
+        ...initialState,
+        users: [mockUser]
+      };
+      
+      const action = { 
+        type: fetchUser.fulfilled.type, 
+        payload: mockUser 
+      };
+      const state = userReducer(stateWithUser, action);
+
+      expect(state.users).toHaveLength(1);
+    });
+
+    it('should set error when fetchUser is rejected', () => {
+      const errorMessage = 'Failed to fetch user';
+      const action = { 
+        type: fetchUser.rejected.type, 
+        payload: errorMessage 
+      };
+      const state = userReducer(initialState, action);
+
+      expect(state.loading).toBe(false);
+      expect(state.error).toBe(errorMessage);
+      expect(state.currentUser).toBeNull();
+    });
+  });
+})
+```
